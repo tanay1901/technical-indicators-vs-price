@@ -7,6 +7,7 @@ import oandapyV20.endpoints.positions as positions
 import oandapyV20.endpoints.pricing as pricing
 import oandapyV20.endpoints.trades as trades
 import oandapyV20.endpoints.transactions as transactions
+
 import pandas as pd
 from ta.trend import MACD
 import json
@@ -16,21 +17,22 @@ import mpl_finance as fin
 import matplotlib.dates as mpl_dates
 import matplotlib.pyplot as plt
 from ta.utils import IndicatorMixin, ema, get_min_max
-
 from mpl_finance import candlestick_ohlc
 
 token = 'bb6ecb991f7922670296435c80304304-0bdce73e35bd6245f6c3917a8d11384e'
 api = API(access_token=token)
-
 accountID = "101-001-14543692-001"
+# API access for Oanda Trading Platform API
 
 params = {"count": 50,
           "granularity": "M5"
           }
+# count is number of datapoints, granularity set at 5 minutes
 
 r = instruments.InstrumentsCandles(instrument="EUR_USD", params=params)
 # show the endpoint as it is constructed for this call
 # print("REQUEST:{}".format(r))
+
 rv = api.request(r)
 # print("RESPONSE:\n{}".format(json.dumps(rv, indent=2)))
 
@@ -82,7 +84,7 @@ EMA5 = ema_ind(ohlc, n=5)
 ohlc = pd.concat([ohlc, EMA5], axis=1)
 
 plt.plot(ohlc["EMA_5"], color="y")
-
+# plotted as the yellow line
 
 # Setting labels & titles
 ax.set_xlabel('Datapoint')
